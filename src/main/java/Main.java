@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
-    static List<String > list = new ArrayList<>();
+    static List<String> list = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
 //        Worker worker = new Loader();
@@ -22,13 +22,14 @@ public class Main {
 
 
     }
-    public static void write(){
+
+    public static void write() {
         Scanner scanner = new Scanner(System.in);
         String x = scanner.nextLine();
+        list.add(x);
         if (x == "") {
             System.out.println("stop");
-                    }
-        list.add(x);
+        }
         System.out.println(list);
     }
 }
