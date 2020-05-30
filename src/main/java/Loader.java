@@ -1,3 +1,9 @@
+/**
+ * Класс для проверки работы класслоудера
+ *
+ * @author Artur Gilyazov
+ */
+
 public class Loader implements Worker {
     static {
         System.out.println("Start now");

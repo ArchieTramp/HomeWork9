@@ -1,3 +1,10 @@
+/**
+ * Класслоудер честно списанный
+ * из лекционного материала
+ *
+ * @author почти Artur Gilyazov
+ */
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -10,14 +17,15 @@ public class MyClassLoader extends ClassLoader {
         }
         return super.loadClass(name);
     }
+
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
         System.out.println("i found " + name);
         if ("Loader".equals(name)) {
-            try{
+            try {
                 byte[] bytes = Files.readAllBytes(Paths.get("./Loader.class"));
                 return defineClass(name, bytes, 0, bytes.length);
-                } catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

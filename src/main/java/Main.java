@@ -1,9 +1,20 @@
+/**
+ * Дан интерфейс
+ * public interface Worker {
+ * void doWork();
+ * }
+ * <p>
+ * Необходимо написать программу, выполняющую определенные задачи
+ *
+ * @author Artur Gilyazov
+ */
+
 import javax.tools.*;
-import java.io.*;
-import java.lang.reflect.Array;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Scanner;
 
 public class Main {
 
@@ -13,6 +24,12 @@ public class Main {
         compileMyClass();
         useMyClassLoader();
     }
+
+    /**
+     * Метод компиляции нового класса до которого сам я бы не догадался, и, соответвенно,
+     * уверен что сделано все чрезмерно сложно, хотя как показывает практика есть
+     * ваританты намного проще. Списано с гугла :(
+     */
 
     private static void compileMyClass() throws IOException {
         File loaderfile = new File("./Loader.java");
@@ -26,6 +43,9 @@ public class Main {
 
     }
 
+    /**
+     * Метод загрузки нового класса через класслоудер, аналогичен лекционному
+     */
     private static void useMyClassLoader() throws Exception {
         ClassLoader classLoader = new MyClassLoader();
         Class<?> kindClass = classLoader.loadClass("Loader");
@@ -34,6 +54,12 @@ public class Main {
 
 
     }
+
+    /**
+     * Метод чтения с консоли нового класса,
+     * написан отвратительно криво, аж тошщно на него смотреть,
+     * но ничего лучше я не придумал.
+     */
 
     public static void writeClass() throws IOException {
 
@@ -55,8 +81,7 @@ public class Main {
                 "}";
 
 
-        String writer = starter;
-        byte[] ba = writer.getBytes();
+        byte[] ba = starter.getBytes();
 
         FileOutputStream fos = new FileOutputStream("Loader.java");
 
