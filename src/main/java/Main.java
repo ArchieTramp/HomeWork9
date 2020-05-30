@@ -1,3 +1,4 @@
+import javax.tools.*;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.nio.file.Files;
@@ -13,8 +14,15 @@ public class Main {
         useMyClassLoader();
     }
 
-    private static void compileMyClass() {
-
+    private static void compileMyClass() throws IOException {
+        File loaderfile = new File("./Loader.java");
+        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
+        File parentDirectory = loaderfile.getParentFile();
+        fileManager.setLocation(StandardLocation.CLASS_OUTPUT, Collections.singletonList(parentDirectory));
+        Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjectsFromFiles(Collections.singletonList(loaderfile));
+        compiler.getTask(null, fileManager, null, null, null, compilationUnits).call();
+        fileManager.close();
 
     }
 
@@ -30,8 +38,9 @@ public class Main {
     public static void writeClass() throws IOException {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("что под саутом");
+        System.out.println("что под саутами");
         String text = scanner.nextLine();
+        String textagain = scanner.nextLine();
 
         String starter = "public class Loader implements Worker {\n" +
                 "    static {\n" +
@@ -40,7 +49,7 @@ public class Main {
                 "\n" +
                 "    @Override\n" +
                 "    public void doWork() {\n" +
-                "        System.out.println(\"Finish again\");\n" +
+                "        System.out.println(\"" + textagain + "\");\n" +
                 "    }\n" +
                 "\n" +
                 "}";
