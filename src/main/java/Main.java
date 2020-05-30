@@ -1,17 +1,21 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.io.*;
+import java.lang.reflect.Array;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class Main {
-    static List<String> list = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
-//        Worker worker = new Loader();
-//        worker.doWork();
 
-        write();
+        writeClass();
+        compileMyClass();
         useMyClassLoader();
+    }
+
+    private static void compileMyClass() {
+
+
     }
 
     private static void useMyClassLoader() throws Exception {
@@ -23,13 +27,32 @@ public class Main {
 
     }
 
-    public static void write() {
+    public static void writeClass() throws IOException {
+
         Scanner scanner = new Scanner(System.in);
-        String x = scanner.nextLine();
-        list.add(x);
-        if (x == "") {
-            System.out.println("stop");
-        }
-        System.out.println(list);
+        System.out.println("что под саутом");
+        String text = scanner.nextLine();
+
+        String starter = "public class Loader implements Worker {\n" +
+                "    static {\n" +
+                "        System.out.println(\"" + text + "\");\n" +
+                "    }\n" +
+                "\n" +
+                "    @Override\n" +
+                "    public void doWork() {\n" +
+                "        System.out.println(\"Finish again\");\n" +
+                "    }\n" +
+                "\n" +
+                "}";
+
+
+        String writer = starter;
+        byte[] ba = writer.getBytes();
+
+        FileOutputStream fos = new FileOutputStream("Loader.java");
+
+        fos.write(ba);
+
     }
+
 }
